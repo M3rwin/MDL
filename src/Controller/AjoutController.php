@@ -10,6 +10,7 @@ use App\Form\AjoutAtelierType;
 use App\Form\AjoutThemeType;
 use App\Form\AjoutVacationType;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\Form\FormTypeInterface;
 
 class AjoutController extends AbstractController
 {
@@ -17,39 +18,22 @@ class AjoutController extends AbstractController
     public function index(Request $request): Response
     {
         
-        // formulaire de choix d'ajout Atelier/Theme/Vacation
-        $form = $this->createForm(AjoutType::class);
+        $formAtelier = $this->createForm(AjoutAtelierType::class);
+        $formTheme = $this->createForm(AjoutThemeType::class);
+        $formVacation = $this->createForm(AjoutVacationType::class);
+        $formAtelier->handleRequest($request);
+        $formTheme->handleRequest($request);
+        $formVacation->handleRequest($request);
         
-        $form->handleRequest($request);
-        if ($form->isSubmitted() && $form->isValid()) {
-            $data = $form->getData();
-            switch ($data['choix']){
-                case 'atelier':
-                    $formEntite = $this->createForm(AjoutAtelierType::class);
-                    break;
-                case 'theme':
-                    $formEntite = $this->createForm(AjoutThemeType::class);
-                    break;
-                case 'vacation':
-                    $formEntite = $this->createForm(AjoutVacationType::class);
-                    break;
-                default:
-                    $formEntite = $data['choix'];
-                    break;
-            }
-            // Traiter les données
-            // (afficher le formulaire correspondant au choix)
-        }
         
-       $context = [
-            'controller_name' => 'AjoutController',
-            'form' => $form->createView(),
+        
+    
+        $context = [
+            'formAtelier' => $formAtelier->createView(),
+            'formTheme' => $formTheme->createView(),
+            'formVacation' => $formVacation->createView(),
         ];
-       
-       if(isset($formEntite)){
-           $context['formEntite'] = $formEntite->createView();
-       }
-       
+        
         return $this->render('ajout/index.html.twig', $context);
     }
 }
