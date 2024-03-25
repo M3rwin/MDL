@@ -1,0 +1,56 @@
+.bvn {
+    margin: 1em auto;
+    max-width: 800px;
+    width: 95%;
+    font: 18px/1.5 sans-serif;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+}
+
+.bvn img{
+    margin-top: -35px;
+    margin-bottom: -20px;
+}
+
+.contenue{
+    display: flex;
+    justify-content: space-between;
+}
+
+.menu, .ateliers, .hebergement {
+    margin: 1em auto;
+    max-width: 800px;
+    width: 45%;
+    font: 18px/1.5 sans-serif;
+    border-radius: 10px;
+    background-color: yellow;
+    margin-top: -20px;
+}
+
+.menu h3, .ateliers h3, .hebergement h3{
+    text-align: center;
+}
+
+.menu .data-item, .ateliers .data-item, .hebergement .data-item{
+    margin-left: 10px;
+}
+
+.ateliers, .hebergement{
+    width: 25%;
+}
+
+.data-item {
+    margin-top: -10px;
+    font-style: italic;
+    color: #333;
+}
+
+.menu ul {
+    padding-left: 20px;
+}
+
+.menu li {
+    margin-bottom: 5px;
+}
