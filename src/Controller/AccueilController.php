@@ -18,8 +18,10 @@ class AccueilController extends AbstractController
            $username = $user->getUserIdentifier();
            
            $compte = $compte->findOneBy(['email'=>$username]);
-           if(!$compte->isVerified()){
-               $this->redirectToRoute('app_logout');
+           $verif=$compte->isVerified();
+           if(!$verif){
+               
+               return $this->redirectToRoute('app_logout');
            }
         }
         
