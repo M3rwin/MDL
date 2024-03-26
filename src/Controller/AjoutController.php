@@ -9,12 +9,14 @@ use App\Form\AjoutAtelierType;
 use App\Form\AjoutThemeType;
 use App\Form\AjoutVacationType;
 use Symfony\Component\HttpFoundation\Request;
+use Doctrine\ORM\EntityManagerInterface;
+use App\Entity\Atelier;
 use App\Repository\AtelierRepository;
 
 class AjoutController extends AbstractController
 {
     #[Route('/ajout', name: 'app_ajout')]
-    public function index(Request $request): Response
+    public function index(Request $request, EntityManagerInterface $em): Response
     {
         // on initie/récupère les forms
         $formAtelier = $this->createForm(AjoutAtelierType::class);
@@ -40,7 +42,12 @@ class AjoutController extends AbstractController
         foreach($forms as $form){
             if($form->isSubmitted() && $form->isValid()){
                 $data=$form->getData();
-                $context['data'] = $data;
+                switch($formType){
+                    case 'atelier':
+                        //$atelier = new Atelier($data['libelle'], $data['nbplacesmaxi'], $data['inscriptions'], $data['vacations'], $data['themes']);
+                        //$em->persist($atelier);
+                        break;
+                }
             }
         }
         
