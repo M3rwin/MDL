@@ -1,10 +1,11 @@
 /* code navbar */
 
 .navbar {
-    background-color: #ffd700;
+    background-color: lightblue;
     box-shadow: 0 2px 4px rgba(0,0,0,0.1);
     padding: 10px 20px;
 }
+
 
 .navbar-nav {
     list-style: none;
@@ -42,7 +43,7 @@
 }
 
 .nav-link:hover, .nav-link:focus {
-    background-color: #eeca00;
+    background-color: lightsteelblue;
     color: #000;
     text-decoration: none;
 }

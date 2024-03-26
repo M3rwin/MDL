@@ -17,16 +17,19 @@
 .contenue{
     display: flex;
     justify-content: space-between;
+    
 }
 
 .menu, .ateliers, .hebergement {
+    display: flex;
     margin: 1em auto;
     max-width: 800px;
     width: 45%;
     font: 18px/1.5 sans-serif;
     border-radius: 10px;
-    background-color: yellow;
+    background-color: lightgrey;
     margin-top: -20px;
+    flex-direction: column;
 }
 
 .menu h3, .ateliers h3, .hebergement h3{

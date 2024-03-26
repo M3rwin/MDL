@@ -18,7 +18,11 @@
 <div class="contenue">   
     <div class="ateliers">
         <h3>Ateliers</h3>
-        <p class="data-item">insérer données</p>
+        
+        {% for atelier in ateliers%}
+            <tr><a>{{atelier.libelle}}</a></tr>
+        {% endfor%}
+        
     </div>
     <div class="menu">
         <h3>Menu</h3>
@@ -26,7 +30,11 @@
     </div>
     <div class="hebergement">
         <h3>Hébergement</h3>
-        <p class="data-item">insérer données</p>
+        {% for hotel in hotels%}
+            <tr><a>{{hotel.nom}}</a></tr>
+        {% endfor%}
     </div>
 </div>
+        
+        {{ dump(ateliers) }}
 {% endblock %}
