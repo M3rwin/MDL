@@ -24,7 +24,7 @@
     display: flex;
     margin: 1em auto;
     max-width: 800px;
-    width: 45%;
+    width: 31%;
     font: 18px/1.5 sans-serif;
     border-radius: 10px;
     background-color: lightgrey;
@@ -40,9 +40,7 @@
     margin-left: 10px;
 }
 
-.ateliers, .hebergement{
-    width: 25%;
-}
+
 
 .data-item {
     margin-top: -10px;

@@ -32,9 +32,14 @@
         <h3>Hébergement</h3>
         {% for hotel in hotels%}
             <tr><a>{{hotel.nom}}</a></tr>
+        <ul>
+        {% for nuite in hotel.tarifs%}
+        <li>{{ nuite.categoriechambre.libellecategorie }}  {{ nuite.tarifnuite }}€</li>
+        {% endfor%}
+        </ul>
         {% endfor%}
     </div>
 </div>
         
-        {{ dump(ateliers) }}
+            
 {% endblock %}
