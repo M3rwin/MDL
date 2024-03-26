@@ -21,31 +21,31 @@
 
         <form id="choix">
             <p>Selectionnez ce que vous voulez ajouter :</p>
-            <input type="radio" id="Atelier" name="choix" value="atelier">
+            <input type="radio" name="choix" value="atelier" id="ratelier">
             <label for="Atelier">Atelier</label>
 
-            <input type="radio" id="Theme" name="choix" value="theme">
+            <input type="radio" name="choix" value="theme" id="rtheme">
             <label for="Theme">Theme</label>
 
-            <input type="radio" id="Vacation" name="choix" value="vacation">
+            <input type="radio" name="choix" value="vacation" id="rvacation">
             <label for="Vacation">Vacation</label>
         </form>
 
-        <div class="atelier" style="display: none;">
+        <div class="form" id="atelier" style="display: none;">
             <p>Ajout atelier</p>
         {{ form_start(formAtelier) }}
         {{ form_widget(formAtelier) }}
         {{ form_end(formAtelier) }}
         </div>
 
-        <div class="theme" style="display: none;">
+        <div  class="form" id="theme" style="display: none;">
             <p>Ajout theme</p>
         {{ form_start(formTheme) }}
         {{ form_widget(formTheme) }}
         {{ form_end(formTheme) }}
         </div>
         
-        <div class="vacation" style="display: none;">
+        <div  class="form" id="vacation" style="display: none;">
             <p>Ajout vacation</p>
         {{ form_start(formVacation) }}
         {{ form_widget(formVacation) }}

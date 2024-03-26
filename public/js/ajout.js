@@ -1,20 +1,20 @@
 document.addEventListener("DOMContentLoaded", () => {
   
-  var formAtelier = document.querySelector('.atelier');
-  var formTheme = document.querySelector('.theme');
-  var formVacation = document.querySelector('.vacation');
+  let radioatelier = document.getElementById('ratelier');
+  let radiotheme = document.getElementById('rtheme');
+  let radiovacation = document.getElementById('rvacation');
   
-  const radios = document.querySelectorAll('#choix input[type=radio]');
-
-    radios.forEach(function(radio) {
-        radio.addEventListener('change', function() {
-            formAtelier.style.display = 'none';
-            formTheme.style.display = 'none';
-            formVacation.style.display = 'none';
-
-            if(this.checked) {
-                document.querySelector('.' + )
-            }
-        });
-    });
+  let forms = document.querySelectorAll('.form');
+  
+  let radios = [radioatelier, radiotheme, radiovacation];
+  
+  radios.forEach(function(radio){
+      radio.addEventListener('click', () => {
+          let id = radio.id.slice(1);
+          forms.forEach(function(form){
+             form.style.display = "none"; 
+          });
+          document.getElementById(id).style.display = 'block';
+      });
+  });
 });
