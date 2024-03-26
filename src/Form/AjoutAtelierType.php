@@ -16,10 +16,6 @@ class AjoutAtelierType extends AbstractType
         $builder
             ->add('libelle')
             ->add('nbplacesmaxi')
-            ->add('themes', EntityType::class, [
-                'class' => Theme::class,
-                'choice_label' => 'libelle',
-            ])
         ;
     }
 
