@@ -5,12 +5,11 @@ namespace App\Controller;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-use App\Form\AjoutType;
 use App\Form\AjoutAtelierType;
 use App\Form\AjoutThemeType;
 use App\Form\AjoutVacationType;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\Form\FormTypeInterface;
+use App\Repository\AtelierRepository;
 
 class AjoutController extends AbstractController
 {

@@ -18,6 +18,7 @@ class AjoutThemeType extends AbstractType
             ->add('ateliers', EntityType::class, [
                 'class' => Atelier::class,
                 'choice_label' => 'libelle',
+                'multiple' => true,
             ])
         ;
     }
