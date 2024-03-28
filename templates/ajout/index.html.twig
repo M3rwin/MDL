@@ -3,6 +3,7 @@
 {% block title %}Hello AjoutController!{% endblock %}
 
 {% block body %}
+
     <style>
         .example-wrapper {
             margin: 1em auto;
@@ -14,52 +15,82 @@
             background: #F5F5F5;
             padding: 2px 6px;
         }
+        .access-denied {
+            text-align: center;
+            padding: 20px;
+            border: 1px solid #ccc;
+            background-color: #fff;
+            border-radius: 5px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            max-width: 400px;
+            margin: auto;
+            margin-top: 100px;
+        }
+
+        .access-denied h1 {
+            color: #d9534f;
+        }
+
+        .access-denied p {
+            color: #555;
+        }
+
     </style>
+    {% if unauthorized is not defined %}
 
-    <div class="example-wrapper">
+        <div class="example-wrapper">
 
 
-        <form id="choix">
-            <p>Selectionnez ce que vous voulez ajouter :</p>
-            <input type="radio" name="choix" value="atelier" id="ratelier">
-            <label for="Atelier">Atelier</label>
+            <form id="choix">
+                <p>Selectionnez ce que vous voulez ajouter :</p>
+                <input type="radio" name="choix" value="atelier" id="ratelier">
+                <label for="Atelier">Atelier</label>
 
-            <input type="radio" name="choix" value="theme" id="rtheme">
-            <label for="Theme">Theme</label>
+                <input type="radio" name="choix" value="theme" id="rtheme">
+                <label for="Theme">Theme</label>
 
-            <input type="radio" name="choix" value="vacation" id="rvacation">
-            <label for="Vacation">Vacation</label>
-        </form>
+                <input type="radio" name="choix" value="vacation" id="rvacation">
+                <label for="Vacation">Vacation</label>
+            </form>
 
-        <div class="form" id="atelier" style="display: none;">
-            <p>Ajout atelier</p>
-        {{ form_start(formAtelier) }}
-        {{ form_widget(formAtelier) }}
-        <input type="hidden" name="form_type" value="atelier">
-        <input type="submit" value="envoyer">
-        {{ form_end(formAtelier) }}
+            <div class="form" id="atelier" style="display: none;">
+                <p>Ajout atelier</p>
+                {{ form_start(formAtelier) }}
+                {{ form_widget(formAtelier) }}
+                <input type="hidden" name="form_type" value="atelier">
+                <input type="submit" value="envoyer">
+                {{ form_end(formAtelier) }}
+            </div>
+
+            <div  class="form" id="theme" style="display: none;">
+                <p>Ajout theme</p>
+                {{ form_start(formTheme) }}
+                {{ form_widget(formTheme) }}
+                <input type="hidden" name="form_type" value="theme">
+                <input type="submit" value="envoyer">
+                {{ form_end(formTheme) }}
+            </div>
+
+            <div  class="form" id="vacation" style="display: none;">
+                <p>Ajout vacation</p>
+                {{ form_start(formVacation) }}
+                {{ form_widget(formVacation) }}
+                <input type="hidden" name="form_type" value="vacation">
+                <input type="submit" value="envoyer">
+                {{ form_end(formVacation) }}
+            </div>
+
+            {{ dump(_context) }}
+
         </div>
-
-        <div  class="form" id="theme" style="display: none;">
-            <p>Ajout theme</p>
-        {{ form_start(formTheme) }}
-        {{ form_widget(formTheme) }}
-        <input type="hidden" name="form_type" value="theme">
-        <input type="submit" value="envoyer">
-        {{ form_end(formTheme) }}
-        </div>
-        
-        <div  class="form" id="vacation" style="display: none;">
-            <p>Ajout vacation</p>
-        {{ form_start(formVacation) }}
-        {{ form_widget(formVacation) }}
-        <input type="hidden" name="form_type" value="vacation">
-        <input type="submit" value="envoyer">
-        {{ form_end(formVacation) }}
-        </div>
-        
-        {{ dump(_context) }}
-
-    </div>
         <script src="{{ asset('js/ajout.js') }}"></script>
+    {% else %}
+
+        <div class="access-denied">
+            <h1>Accès Non Autorisé</h1>
+            <p>Désolé, vous n'avez pas la permission d'accéder à cette page.</p>
+        </div>
+
+
+    {% endif %}
 {% endblock %}
