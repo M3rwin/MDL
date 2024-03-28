@@ -20,11 +20,14 @@
                     <li class="nav-item">
                         <a href="/accueil" class="nav-link">Home</a>
                     </li>
+                    {%  if app.user  %} 
+                    {%  if app.user.roles == ["ROLE_USER"] or app.user.roles == ["ROLE_ADMIN"]  %} 
                     <li>
                         <a href="/ajout" class="nav-link">Ajout</a>
                     </li>
+                    {% endif %}
                 </ul>
-                {%  if app.user  %} 
+                
                 <ul class="navbar-log">
                     <li class="log-item">
                         <a href="/logout" class="nav-link">Se deconnecter</a>
