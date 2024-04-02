@@ -2,6 +2,11 @@
 
 {% block title %}Hello AjoutController!{% endblock %}
 
+{% block stylesheets %}
+    <link rel="stylesheet" href="{{ asset('css/style.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/forms.css') }}">
+{% endblock %}
+
 {% block body %}
 
     <style>
@@ -44,13 +49,13 @@
             <form id="choix">
                 <p>Selectionnez ce que vous voulez ajouter :</p>
                 <input type="radio" name="choix" value="atelier" id="ratelier">
-                <label for="Atelier">Atelier</label>
+                <label for="ratelier">Atelier</label>
 
                 <input type="radio" name="choix" value="theme" id="rtheme">
-                <label for="Theme">Theme</label>
+                <label for="rtheme">Theme</label>
 
                 <input type="radio" name="choix" value="vacation" id="rvacation">
-                <label for="Vacation">Vacation</label>
+                <label for="rvacation">Vacation</label>
             </form>
 
             <div class="form" id="atelier" style="display: none;">
@@ -80,7 +85,6 @@
                 {{ form_end(formVacation) }}
             </div>
 
-            {{ dump(_context) }}
 
         </div>
         <script src="{{ asset('js/ajout.js') }}"></script>

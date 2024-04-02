@@ -20,24 +20,24 @@ class AjoutController extends AbstractController {
     public function index(Request $request, EntityManagerInterface $em, CompteRepository $compte): Response {
 
         //verification si user est role user ou admin
-        $user = $this->getUser();
-        if ($user != null) {
-            $username = $user->getUserIdentifier();
-
-            $compte = $compte->findOneBy(['email' => $username]);
-            $role = $compte->getRoles();
-            if ($role != ["ROLE_USER"] && $role != ["ROLE_ADMIN"]) {
-                $unauthorized = true;
-                return $this->render('ajout/index.html.twig', [
-                            'unauthorized' => $unauthorized,
-                ]);
-            }
-        }else {
-            $unauthorized = true;
-                return $this->render('ajout/index.html.twig', [
-                            'unauthorized' => $unauthorized,
-                ]);
-        }
+        //$user = $this->getUser();
+        //if ($user != null) {
+        //    $username = $user->getUserIdentifier();
+                
+        //    $compte = $compte->findOneBy(['email' => $username]);
+        //    $role = $compte->getRoles();
+        //    if ($role != ["ROLE_USER"] && $role != ["ROLE_ADMIN"]) {
+        //        $unauthorized = true;
+        //        return $this->render('ajout/index.html.twig', [
+        //                    'unauthorized' => $unauthorized,
+        //        ]);
+        //    }
+        //}else {
+        //    $unauthorized = true;
+        //        return $this->render('ajout/index.html.twig', [
+        //                    'unauthorized' => $unauthorized,
+        //        ]);
+        //}
 
         // on initie/récupère les forms
         $formAtelier = $this->createForm(AjoutAtelierType::class);
@@ -63,12 +63,8 @@ class AjoutController extends AbstractController {
         foreach ($forms as $form) {
             if ($form->isSubmitted() && $form->isValid()) {
                 $data = $form->getData();
-                switch ($formType) {
-                    case 'atelier':
-                        //$atelier = new Atelier($data['libelle'], $data['nbplacesmaxi'], $data['inscriptions'], $data['vacations'], $data['themes']);
-                        //$em->persist($atelier);
-                        break;
-                }
+                $em->persist($data);
+                $em->flush();
             }
         }
 

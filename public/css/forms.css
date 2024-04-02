@@ -1,0 +1,109 @@
+/*
+Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+Click nbfs://nbhost/SystemFileSystem/Templates/Other/CascadeStyleSheet.css to edit this template
+*/
+/* 
+    Created on : 2 avr. 2024, 09:00:40
+    Author     : marco.clin
+*/
+
+#choix {
+    max-width: 600px;
+    margin: 20px auto;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    background-color: #ffffff;
+    font-family: 'Arial', sans-serif;
+}
+
+#choix p {
+    font-size: 18px;
+    color: #333333;
+    margin-bottom: 20px;
+}
+
+/* Style des inputs et des labels */
+#choix input[type="radio"] {
+    display: none; /* Cache les boutons radio par défaut */
+}
+
+#choix label {
+    display: block;
+    background-color: #f2f2f2;
+    color: #000;
+    padding: 10px 20px;
+    margin-bottom: 10px;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.2s;
+    border: 2px solid transparent;
+}
+
+/* Style lorsque l'input est sélectionné */
+#choix input[type="radio"]:checked + label {
+    background-color: #007bff;
+    color: #ffffff;
+    border-color: #0056b3;
+}
+
+/* Effet de survol sur les labels */
+#choix label:hover {
+    background-color: #e7e7e7;
+    transform: translateY(-2px);
+}
+
+/* Si l'input est sélectionné, ajuste le style du label pour le survol */
+#choix input[type="radio"]:checked + label:hover {
+    background-color: #0056b3;
+}
+
+
+
+/* Style global pour tous les formulaires */
+.form {
+    max-width: 600px;
+    margin: 20px auto;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    background-color: #ffffff;
+    font-family: 'Arial', sans-serif;
+    display: none; /* Assurez-vous de contrôler cet affichage via JavaScript selon la sélection */
+}
+
+.form p {
+    font-size: 20px;
+    font-weight: bold;
+    color: #333333;
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+.form input[type="submit"] {
+    display: inline-block;
+    background-color: #007bff;
+    color: #ffffff;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.form input[type="submit"]:hover {
+    background-color: #0056b3;
+}
+
+/* Styles spécifiques pour chaque formulaire */
+#atelier {
+    border-left: 5px solid #007bff; /* Bleu */
+}
+
+#theme {
+    border-left: 5px solid #28a745; /* Vert */
+}
+
+#vacation {
+    border-left: 5px solid #dc3545; /* Rouge */
+}
