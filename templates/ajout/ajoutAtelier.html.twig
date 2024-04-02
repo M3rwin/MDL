@@ -1,0 +1,66 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello AjoutController!{% endblock %}
+
+{% block stylesheets %}
+    <link rel="stylesheet" href="{{ asset('css/style.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/forms.css') }}">
+{% endblock %}
+
+{% block body %}
+
+    <style>
+        .example-wrapper {
+            margin: 1em auto;
+            max-width: 800px;
+            width: 95%;
+            font: 18px/1.5 sans-serif;
+        }
+        .example-wrapper code {
+            background: #F5F5F5;
+            padding: 2px 6px;
+        }
+        .access-denied {
+            text-align: center;
+            padding: 20px;
+            border: 1px solid #ccc;
+            background-color: #fff;
+            border-radius: 5px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            max-width: 400px;
+            margin: auto;
+            margin-top: 100px;
+        }
+
+        .access-denied h1 {
+            color: #d9534f;
+        }
+
+        .access-denied p {
+            color: #555;
+        }
+
+    </style>
+    {% if unauthorized is not defined %}
+
+        {% for message in app.flashes('warning') %}
+            <div class="access-denied">
+                {{ message }}
+            </div>
+        {% endfor %}
+
+        <div class="example-wrapper">
+            <div class="form" id="atelier" style="display: block;">
+                <p>Ajout atelier</p>
+                {{ form_start(formAtelier) }}
+                {{ form_widget(formAtelier) }}
+                <input type="hidden" name="form_type" value="atelier">
+                <input type="submit" value="envoyer">
+                {{ form_end(formAtelier) }}
+            </div>
+        </div>
+
+
+
+    {% endif %}
+{% endblock %}

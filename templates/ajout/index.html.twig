@@ -40,7 +40,41 @@
             color: #555;
         }
 
+        .notif {
+            background-color: #4CAF50;
+            color: white; /* Couleur du texte */
+            padding: 20px; /* Espacement autour du texte */
+            position: fixed; /* Position fixée pour toujours rester en vue */
+            top: 20px; /* Positionnée à 20px du haut de la page */
+            right: 20px; /* Positionnée à 20px de la droite de la page */
+            z-index: 1000; /* S'assure que la notification est au-dessus d'autres éléments */
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1); /* Ombre légère pour un peu de profondeur */
+            border-radius: 4px; /* Bordures arrondies */
+        }
+
+        #fermer {
+            float: right; /* Place la croix à droite */
+            font-size: 22px; /* Taille de la croix */
+            cursor: pointer; /* Change le curseur en main pour indiquer un élément cliquable */
+        }
+
+        #fermer:hover {
+            color: #bbb; /* Change la couleur lorsque survolée pour un retour visuel */
+        }
+
+        .message{
+            margin-right: 10px;
+        }
+
     </style>
+
+    {% for message in app.flashes('success') %}
+    <div class="notif">
+        <span id="fermer" onclick="fermerNotif()">&times;</span>
+        <p class="message">{{message}}</p>
+    </div>
+    {% endfor %}
+
     {% if unauthorized is not defined %}
 
         <div class="example-wrapper">
