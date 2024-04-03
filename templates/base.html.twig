@@ -21,7 +21,7 @@
                         <a href="/accueil" class="nav-link">Home</a>
                     </li>
                     {%  if app.user  %} 
-                    {%  if is_granted('ROLE_ADMIN')  %} 
+                    {%  if is_granted('ROLE_ADMIN') or  is_granted('ROLE_USER')%} 
                     <li>
                         <a href="/ajout" class="nav-link">Ajout</a>
                     </li>
