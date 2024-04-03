@@ -19,10 +19,20 @@ class InscriptionCongresController extends AbstractController
         $username = $user->getUserIdentifier();
         $compte = $compte->findOneBy(['email'=>$username]);
         $licencie = Outils::GetLicencieByNumLicence($compte->getNumlicence());
+        
+        
         return $this->render('inscription_congres/index.html.twig', [
             'controller_name' => 'InscriptionCongresController',
             'user' => $user,
             'licencie' => $licencie,
+            'username' => $username,
         ]);
     }
+    
+    #[Route('/changementEmail', name: 'app_changemail')]
+    public function ChangeMail() {
+        return $this->redirectToRoute("app_inscription_congres");
+    }
+    
+    
 }

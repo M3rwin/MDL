@@ -12,13 +12,14 @@
         <strong>{{ licencie.nom }} {{ licencie.prenom }}</strong>
     </div>
     <ul class="card-content">
+        
         <li>{{ licencie.adresse1 }}</li>
         {% if licencie.adresse2 is not null %}
             <li>{{ licencie.adresse2 }}</li>
         {% endif %}
         <li>{{ licencie.cp }} {{ licencie.ville }}</li>
         <li>{{ licencie.tel }}</li>
-        <li>{{ licencie.mail }}</li>
+        <li>{{ licencie.mail }}<form action="/changementEmail" method="POST"><input value="{{ licencie.mail }}" style="display: none"> <input type="submit" value="Definir cet email"></form></li>
     </ul>
 </div>
 
