@@ -60,11 +60,13 @@
             </thead>
             <tbody>
                 {% for atelier in ateliers %}
+                    {% if atelier.vacations|length > 0 %}
                     <tr>
                         <th scope="row">{{ atelier.libelle }}</th>
                         <td>{% for vacation in atelier.vacations %}{{ vacation.dateheuredebut|date('d-m-Y H:i') }} à {{ vacation.dateheurefin|date('Y-m-d H:i') }}{% endfor %}</td>
-                        <td></td>
+                        <td>{% for vacation in atelier.vacations %}<a href="/modifier/{{ atelier.id }}">Modifier vacation {{ atelier.id }}</a>{% endfor %}</td>
                     </tr>
+                    {% endif %}
                 {% endfor %}
             </tbody>
         </table>
