@@ -52,4 +52,35 @@
     transform: scale(0.95);
 }
 
+.card-container {
+    max-width: 50%;
+    margin-top: 20px;
+    margin-left: 25%;
+    margin-right: 25%;
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    background-color: #f9f9f9;
+}
+
+.card-header {
+    margin-bottom: 20px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid #eee;
+    text-align: center;
+}
+
+.card-content {
+    list-style-type: none;
+    padding: 0;
+}
+
+.card-content li {
+    margin-bottom: 10px;
+}
+
+.card-content li:last-child {
+    margin-bottom: 0;
+}
 /* fin code navbar */

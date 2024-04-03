@@ -1,0 +1,25 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Inscription au congrès{% endblock %}
+
+{% block body %}
+    <style>
+        
+    </style>
+
+    <div class="card-container">
+    <div class="card-header">
+        <strong>{{ licencie.nom }} {{ licencie.prenom }}</strong>
+    </div>
+    <ul class="card-content">
+        <li>{{ licencie.adresse1 }}</li>
+        {% if licencie.adresse2 is not null %}
+            <li>{{ licencie.adresse2 }}</li>
+        {% endif %}
+        <li>{{ licencie.cp }} {{ licencie.ville }}</li>
+        <li>{{ licencie.tel }}</li>
+        <li>{{ licencie.mail }}</li>
+    </ul>
+</div>
+
+{% endblock %}
