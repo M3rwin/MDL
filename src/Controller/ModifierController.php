@@ -23,26 +23,42 @@ class ModifierController extends AbstractController
         ]);
     }
     
-    #[Route('/modifier/{id}', name: 'app_modifier_vacation')]
-    public function modifier(Request $request, VacationRepository $repo, EntityManagerInterface $em, int $id): Response
+    #[Route('/modifier/{idAtelier}', name: 'app_modifier_atelier')]
+    public function modifierAtelier(AtelierRepository $repoAtelier, int $idAtelier): Response
     {
-        $vacation = $repo->find($id);
+        $atelier = $repoAtelier->find($idAtelier);
+        
+        return $this->render('modifier/modifierAtelier.html.twig', [
+            'atelier' => $atelier,
+            'id' => $idAtelier,
+        ]);
+    }
+    
+    
+    #[Route('/modifier/{idAtelier}/{idVacation}', name: 'app_modifier_atelier_vacations')]
+    public function modifierAtelierVacations(Request $request, VacationRepository $repoVacation, AtelierRepository $repoAtelier, EntityManagerInterface $em, int $idAtelier, int $idVacation): Response
+    {
+        $atelier = $repoAtelier->find($idAtelier);
+        $vacation = $repoVacation->find($idVacation);
         
         $formVacation = $this->createForm(AjoutVacationType::class, $vacation);
         $formVacation->handleRequest($request);
         
         if ($formVacation->isSubmitted() && $formVacation->isValid()) {
                     $data = $formVacation->getData();
-                    $vacation->setDateheuredebut($data->dateheuredebut);
-                    $vacation->setDateheurefin($data->dateheurefin);
-                    $vacation->setAtelier($data->atelier);
+                    $vacation->setDateheuredebut($data->getDateheuredebut());
+                    $vacation->setDateheurefin($data->getDateheurefin());
+                    $vacation->setAtelier($data->getAtelier());
                     $em->flush();
+                    return $this->redirectToRoute('app_modifier_atelier', ['idAtelier' => $idAtelier]);
         }
         
         return $this->render('modifier/modifierVacation.html.twig', [
             'formVacation' => $formVacation->createView(),
             'vacation' => $vacation,
-            'id' => $id,
+            'id' => $idVacation,
         ]);
     }
+    
+    
 }
