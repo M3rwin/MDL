@@ -18,8 +18,10 @@ class AjoutController extends AbstractController {
 
     #[Route('/ajout', name: 'app_ajout')]
     public function index(Request $request, EntityManagerInterface $em, AtelierRepository $repo): Response {
-
+        // on récupère tout les ateliers
         $ateliers = $repo->findAll();
+        
+        
         if (count($ateliers) > 0) {
             // on initie/récupère les forms
             $formAtelier = $this->createForm(AjoutAtelierType::class);
@@ -47,10 +49,12 @@ class AjoutController extends AbstractController {
                     $data = $form->getData();
                     $em->persist($data);
                     $em->flush();
+                    // ajout du message de confirmation
                     $this->addFlash(
                             'success',
                             'Votre ' . $formType . ' a bien été ajouté',
                     );
+                    return $this->redirectToRoute('app_ajout');
                 }
             }
 
@@ -63,8 +67,11 @@ class AjoutController extends AbstractController {
                 $data = $formAtelier->getData();
                 $em->persist($data);
                 $em->flush();
-
-                header('Refresh: 0');
+                $this->addFlash(
+                        'success',
+                        'Votre atelier a bien été ajouté',
+                );
+                return $this->redirectToRoute('app_ajout');
             }
 
 
