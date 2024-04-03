@@ -41,32 +41,32 @@
         tbody > tr:nth-of-type(even) {
             background-color: rgb(237 238 242);
         }
-        
+
         .content{
             display: flex;
             justify-content: center;
         }
 
     </style>
-
+    
+    <h1>Vacations de l'atelier {{ atelier.libelle }}</h1>
+    
     <div class="content">
         <table>
             <thead>
                 <tr>
-                    <th scope="col">Atelier</th>
-                    <th scope="col">Nombre de vacations</th>
-                    <th scope="col">Modifier les vacations</th>
+                    <th scope="col">Date de début</th>
+                    <th scope="col">Date de fin</th>
+                    <th scope="col">Modifier la vacation</th>
                 </tr>
             </thead>
             <tbody>
-                {% for atelier in ateliers %}
-                    {% if atelier.vacations|length > 0 %}
+                {% for vacation in atelier.vacations %}
                     <tr>
-                        <th scope="row">{{ atelier.libelle }}</th>
-                        <td>{{ atelier.vacations|length }}</td>
-                        <td><a href="/modifier/{{ atelier.id }}">Modifier vacation {{ atelier.id }}</a></td>
+                        <th>{{ vacation.dateheuredebut|date("d/m/Y") }}</th>
+                        <td>{{ vacation.dateheurefin|date("d/m/Y") }}</td>
+                        <td><a href="/modifier/{{ atelier.id }}/{{ vacation.id }}">Modifier vacation</a></td>
                     </tr>
-                    {% endif %}
                 {% endfor %}
             </tbody>
         </table>
