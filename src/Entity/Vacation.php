@@ -47,8 +47,12 @@ class Vacation
 
     public function setDateheurefin(\DateTimeInterface $dateheurefin): static
     {
-        $this->dateheurefin = $dateheurefin;
-
+        if($dateheurefin < $this->dateheuredebut){
+            throw new \Exception("La date de fin ne peux pas être supérieur à la date de début");
+        }else{
+            $this->dateheurefin = $dateheurefin;
+        }
+        
         return $this;
     }
 
