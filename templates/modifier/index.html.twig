@@ -55,7 +55,7 @@
                 <tr>
                     <th scope="col">Atelier</th>
                     <th scope="col">Nombre de vacations</th>
-                    <th scope="col">Modifier les vacations</th>
+                    <th scope="col">Action</th>
                 </tr>
             </thead>
             <tbody>
@@ -64,7 +64,7 @@
                     <tr>
                         <th scope="row">{{ atelier.libelle }}</th>
                         <td>{{ atelier.vacations|length }}</td>
-                        <td><a href="/modifier/{{ atelier.id }}">Modifier vacation {{ atelier.id }}</a></td>
+                        <td><a href="/modifier/{{ atelier.id }}">Afficher les vacations</a></td>
                     </tr>
                     {% endif %}
                 {% endfor %}
