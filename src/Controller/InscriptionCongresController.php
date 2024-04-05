@@ -6,8 +6,10 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use App\Outils\Outils;
-use App\Entity\Compte;
 use App\Repository\CompteRepository;
+use App\Entity\Compte;
+use Doctrine\ORM\EntityManagerInterface;
+use Symfony\Component\HttpFoundation\Request;
 
 class InscriptionCongresController extends AbstractController
 {
@@ -30,7 +32,16 @@ class InscriptionCongresController extends AbstractController
     }
     
     #[Route('/changementEmail', name: 'app_changemail')]
-    public function ChangeMail() {
+    public function ChangeMail(EntityManagerInterface $em, Request $request ) {
+        ///recupere le licencie
+        $user = $this->getUser();
+        $username = $user->getUserIdentifier();
+        $compte = $em->getRepository(Compte::class)->findOneBy(['email'=>$username]);
+        //recupere la variable post et défini le mail
+        $mail = $request->request->get('mail');
+        $compte->setEmail($mail);
+        $em->flush();
+        
         return $this->redirectToRoute("app_inscription_congres");
     }
     

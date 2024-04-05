@@ -29,6 +29,12 @@
                         <a href="/modifier" class="nav-link">Modifier</a>
                     </li>
                     {% endif %}
+                    
+                    {%  if is_granted('ROLE_INSCRIT')%} 
+                    <li>
+                        <a href="/inscriptioncongres" class="nav-link">Inscription</a>
+                    </li>
+                    {% endif %}
                 </ul>
                 
                 <ul class="navbar-log">

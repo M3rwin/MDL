@@ -41,7 +41,7 @@ security:
     access_control:
          - { path: ^/ajout, roles: [ROLE_ADMIN] }
          - { path: ^/modifier, roles: [ROLE_ADMIN] }
-        # - { path: ^/accueil, roles: ROLE_USER }
+         - { path: ^/inscriptioncongres, roles: ROLE_INSCRIT }
 
 when@test:
     security:
