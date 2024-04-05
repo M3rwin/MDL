@@ -3,8 +3,9 @@
 {% block title %}Inscription au congrès{% endblock %}
 
 {% block body %}
+    {{ dump(ateliers) }}
     <body>
-        <div class="card-container">
+        <div class="card-container" >
             <div class="card-header">
                 <strong>{{ licencie.nom }} {{ licencie.prenom }}</strong>
             </div>
@@ -25,7 +26,23 @@
         </div>
 
         <div class="inscription">
-            <form>
+            <form action="/commitinscription" method="post">
+                <div id="FormAteliers">
+                    <h3>Ateliers</h3>
+                    {% for atelier in ateliers %}
+                        <input type="checkbox" class="radioAtelier" name="ateliers[]" id="{{ atelier.libelle }}" value="{{ atelier.id }}" />
+                        <label for="{{ atelier.libelle }}">
+                            <div class="card-container card-atelier"><div class="card-header">
+                                    <strong>{{ atelier.libelle }}</strong>
+                                </div>
+                                <ul class="card-content"><li>{{ atelier.nbplacesmaxi }} places restantes</li></ul>
+                            </div>
+                        </label>
+                    {% endfor %}
+                </div>
+                <div>
+
+                </div>
 
             </form>
 

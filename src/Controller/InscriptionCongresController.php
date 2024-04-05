@@ -9,25 +9,27 @@ use App\Outils\Outils;
 use App\Repository\CompteRepository;
 use App\Entity\Compte;
 use Doctrine\ORM\EntityManagerInterface;
+use App\Entity\Atelier;
 use Symfony\Component\HttpFoundation\Request;
 
 class InscriptionCongresController extends AbstractController
 {
     #[Route('/inscriptioncongres', name: 'app_inscription_congres')]
-    public function index(CompteRepository $compte): Response
+    public function index(CompteRepository $compte,EntityManagerInterface $em): Response
     {
         ///recupere le licencie
         $user = $this->getUser();
         $username = $user->getUserIdentifier();
         $compte = $compte->findOneBy(['email'=>$username]);
         $licencie = Outils::GetLicencieByNumLicence($compte->getNumlicence());
-        
+        $ateliers = $em->getRepository(Atelier::class)->findAll();
         
         return $this->render('inscription_congres/index.html.twig', [
             'controller_name' => 'InscriptionCongresController',
             'user' => $user,
             'licencie' => $licencie,
             'username' => $username,
+            'ateliers' => $ateliers,
         ]);
     }
     
@@ -43,6 +45,10 @@ class InscriptionCongresController extends AbstractController
         $em->flush();
         
         return $this->redirectToRoute("app_inscription_congres");
+    }
+    #[Route('/commitinscription', name: 'app_commitinscription')]
+    public function CommitInscription(EntityManagerInterface $em,Request $request) {
+        
     }
     
     

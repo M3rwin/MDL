@@ -21,6 +21,14 @@ class AtelierRepository extends ServiceEntityRepository
         parent::__construct($registry, Atelier::class);
     }
 
+    public function findAll(): array 
+    {
+        return $this->createQueryBuilder('a')
+            ->orderBy('a.id', 'ASC')
+            ->getQuery()
+            ->getResult()
+        ;
+    }
 //    /**
 //     * @return Atelier[] Returns an array of Atelier objects
 //     */
