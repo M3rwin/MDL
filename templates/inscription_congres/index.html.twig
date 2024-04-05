@@ -35,7 +35,7 @@
                             <div class="card-container card-atelier"><div class="card-header">
                                     <strong>{{ atelier.libelle }}</strong>
                                 </div>
-                                <ul class="card-content"><li>{{ atelier.nbplacesmaxi }} places restantes</li></ul>
+                                <ul class="card-content"><li>{{ atelier.nbplacesmaxi - atelier.inscriptions|length }} places</li></ul>
                             </div>
                         </label>
                     {% endfor %}
@@ -43,6 +43,7 @@
                 <div>
 
                 </div>
+                <input type="submit">
 
             </form>
 

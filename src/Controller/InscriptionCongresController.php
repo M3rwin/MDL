@@ -22,7 +22,7 @@ class InscriptionCongresController extends AbstractController
         $username = $user->getUserIdentifier();
         $compte = $compte->findOneBy(['email'=>$username]);
         $licencie = Outils::GetLicencieByNumLicence($compte->getNumlicence());
-        $ateliers = $em->getRepository(Atelier::class)->findAll();
+        $ateliers = $em->getRepository(Atelier::class)->findNotFull();
         
         return $this->render('inscription_congres/index.html.twig', [
             'controller_name' => 'InscriptionCongresController',
@@ -48,6 +48,8 @@ class InscriptionCongresController extends AbstractController
     }
     #[Route('/commitinscription', name: 'app_commitinscription')]
     public function CommitInscription(EntityManagerInterface $em,Request $request) {
+        
+        $formateliers = $request->request->get('ateliers');
         
     }
     
