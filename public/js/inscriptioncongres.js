@@ -4,7 +4,7 @@ const confirmemail = document.getElementById("mailconfirm");
 const formEmail = document.getElementById("formemail");
 const FormInscription = document.getElementById("FormInscription");
 const recap = document.getElementById("recap");
-
+const SubmitSection = document.getElementById("SubmitSection");
 //envoie les param du form en post
 async function sendData() {
     // Associate the FormData object with the form element
@@ -25,6 +25,16 @@ async function sendData() {
 //recupère les informations du form
 recap.addEventListener("click", function () {
     const formDataInscription = new FormData(FormInscription);
+    let keys = [];
+    for (const pair of formDataInscription.entries()) {
+        keys = keys + [pair[0]];
+    }
+    if(!keys.includes("ateliers[]")) {
+        window.alert("Selectionnez un atelier");
+    }else {
+        
+    }
+    
     //debug a retiré
     for (const pair of formDataInscription.entries()) {
         console.log(pair[0], pair[1]);
