@@ -1,10 +1,20 @@
 
-
+//bouton pour changer l'email
 const confirmemail = document.getElementById("mailconfirm");
+//form pour changer l'email
 const formEmail = document.getElementById("formemail");
+//le formulaire d'inscription
 const FormInscription = document.getElementById("FormInscription");
+//div dans le formulaire
+const FormDiv = document.getElementById("FormDiv");
+//bouton pour afficher recap d'inscription
 const recap = document.getElementById("recap");
+//bouton pour valider la commande
+const commit = document.getElementById("commit");
+//section conteant les bouton
 const SubmitSection = document.getElementById("SubmitSection");
+
+
 //envoie les param du form en post
 async function sendData() {
     // Associate the FormData object with the form element
@@ -26,13 +36,16 @@ async function sendData() {
 recap.addEventListener("click", function () {
     const formDataInscription = new FormData(FormInscription);
     let keys = [];
+    
     for (const pair of formDataInscription.entries()) {
         keys = keys + [pair[0]];
     }
     if(!keys.includes("ateliers[]")) {
         window.alert("Selectionnez un atelier");
     }else {
-        
+        FormDiv.style.display = "none";
+        recap.style.display = "none";
+        commit.style.display = "block";
     }
     
     //debug a retiré
