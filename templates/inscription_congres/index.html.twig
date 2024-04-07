@@ -3,8 +3,9 @@
 {% block title %}Inscription au congrès{% endblock %}
 
 {% block body %}
-    
+
     <body>
+        {{ dump(_context) }}
         <div class="card-container" >
             <div class="card-header">
                 <strong>{{ licencie.nom }} {{ licencie.prenom }}</strong>
@@ -71,14 +72,28 @@
                         {% endfor %}
                     </div>
                     <div id="FormRestauration">
-                        
-                    </div>
-                </div>
-                <div id="SubmitSection">
-                    <button type="button" id="recap">Voir mon inscription</button>
-                    <input type="submit" id="commit" style="display: none">
+                        <h3>Restauration</h3>
 
-                </div>
+                        <div class="card-nuite"><div class="card-header">
+                                <strong>38€ par repas</strong>
+                            </div>
+                            <ul class="card-content">
+                                {% for repas in restauration %}
+                                    <li><input type="checkbox" class="radioNuite" name="Restauration[]" id="{{ repas.id }}" value="{{ repas.id }}_{{ repas.dateRestauration|date('d/m/Y') }}_{{ repas.typeRepas }}" />
+                                        <label>
+                                            {{ repas.dateRestauration|date('d/m/Y') }} {{ repas.typeRepas }}
+                                        </label>
+                                    </li>
+                                {% endfor %}
+                            </ul>
+
+                        </div>
+                    </div>
+                    <div id="SubmitSection">
+                        <button type="button" id="recap">Voir mon inscription</button>
+                        <input type="submit" id="commit" style="display: none">
+
+                    </div>
 
 
             </form>

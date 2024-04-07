@@ -11,6 +11,7 @@ use App\Entity\Compte;
 use Doctrine\ORM\EntityManagerInterface;
 use App\Entity\Atelier;
 use App\Entity\Proposer;
+use App\Entity\Restauration;
 use Symfony\Component\HttpFoundation\Request;
 
 class InscriptionCongresController extends AbstractController
@@ -25,6 +26,7 @@ class InscriptionCongresController extends AbstractController
         $licencie = Outils::GetLicencieByNumLicence($compte->getNumlicence());
         $ateliers = $em->getRepository(Atelier::class)->findNotFull();
         $hotels = $em->getRepository(Proposer::class)->findAll();
+        $restauration = $em->getRepository(Restauration::class)->findAll();
         
         return $this->render('inscription_congres/index.html.twig', [
             'controller_name' => 'InscriptionCongresController',
@@ -33,6 +35,7 @@ class InscriptionCongresController extends AbstractController
             'username' => $username,
             'ateliers' => $ateliers,
             'hotels' => $hotels,
+            'restauration' => $restauration,
         ]);
     }
     
