@@ -12,6 +12,10 @@ use Doctrine\ORM\EntityManagerInterface;
 use App\Entity\Atelier;
 use App\Entity\Proposer;
 use App\Entity\Restauration;
+use App\Entity\Hotel;
+use App\Entity\Categoriechambre;
+use DateTime;
+use App\Entity\Nuite;
 use Symfony\Component\HttpFoundation\Request;
 use App\Entity\Inscription;
 
@@ -62,22 +66,41 @@ class InscriptionCongresController extends AbstractController {
             $compte = $em->getRepository(Compte::class)->findOneBy(['email' => $username]);
             //creer une inscription et l'associé au compte de l'user
             $inscription = new Inscription();
+            $inscription->setDateinscription(new DateTime());
             //remplir la table inscription_atelier (id inscription et id atelier)
             foreach ($_POST["ateliers"] as $atelier) {
-                $atelier = filter_input(INPUT_POST, $atelier, FILTER_SANITIZE_NUMBER_INT);
-                $inscription->addAtelier(intval($atelier));
+                
+                $atelierExistant = $em->getRepository(Atelier::class)->findOneBy(['id' => intval($atelier)]);
+                $inscription->addAtelier($atelierExistant);
             }
 
             //split les informations des restaurations reçu sous forme id_date_type_repas
             //remplir la table inscription_restauration (id inscription et id restauration)
             foreach ($_POST["Restauration"] as $restauration) {
                 $restaurationArray = explode("_",$restauration);
-                $inscription->addRestauration(intval($restaurationArray[0]));
+                $restaurationExistant = $em->getRepository(Restauration::class)->findOneBy(['id' => intval($restaurationArray[0])]);
+                $inscription->addRestauration($restaurationExistant);
             }
             
             
             //split info nuite recu sous forme nuite.id _hotel.nom _categoriechambre.libellecategorie_nuite.tarifnuite_datenuite_categoriechambre.id_hotel.id
             //remplir la table nuite (id inscription et id hotel et id categorie et date nuite)
+            foreach ($_POST["Nuites"] as $nuite) {
+                $nuiteArray = explode("_",$nuite);
+                $nuiteobjet = new Nuite();
+                $hotelExistant = $em->getRepository(Hotel::class)->findOneBy(['id' => intval($nuiteArray[6])]);
+                $nuiteobjet->setHotel($hotelExistant);
+                $categorieExistant = $em->getRepository(Categoriechambre::class)->findOneBy(['id' => intval($nuiteArray[5])]);
+                $nuiteobjet->setCategorie($categorieExistant);
+                $date = DateTime::createFromFormat("Y-d-m", $nuiteArray[4]);
+                $nuiteobjet->setDatenuitee($date);
+                $inscription->addNuite($nuiteobjet);
+                 $em->persist($nuiteobjet);
+                
+            }
+            $em->persist($inscription);
+            $compte->setInscription($inscription);
+            $em->flush();
 
             $parameters = json_decode($request->getContent(), true);
             return new Response(var_dump($_POST));
