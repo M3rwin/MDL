@@ -27,20 +27,24 @@ class InscriptionCongresController extends AbstractController {
         $user = $this->getUser();
         $username = $user->getUserIdentifier();
         $compte = $compte->findOneBy(['email' => $username]);
-        $licencie = Outils::GetLicencieByNumLicence($compte->getNumlicence());
-        $ateliers = $em->getRepository(Atelier::class)->findNotFull();
-        $hotels = $em->getRepository(Proposer::class)->findAll();
-        $restauration = $em->getRepository(Restauration::class)->findAll();
+        if ($compte->getInscription() == null) {
+            $licencie = Outils::GetLicencieByNumLicence($compte->getNumlicence());
+            $ateliers = $em->getRepository(Atelier::class)->findNotFull();
+            $hotels = $em->getRepository(Proposer::class)->findAll();
+            $restauration = $em->getRepository(Restauration::class)->findAll();
 
-        return $this->render('inscription_congres/index.html.twig', [
-                    'controller_name' => 'InscriptionCongresController',
-                    'user' => $user,
-                    'licencie' => $licencie,
-                    'username' => $username,
-                    'ateliers' => $ateliers,
-                    'hotels' => $hotels,
-                    'restauration' => $restauration,
-        ]);
+            return $this->render('inscription_congres/index.html.twig', [
+                        'controller_name' => 'InscriptionCongresController',
+                        'user' => $user,
+                        'licencie' => $licencie,
+                        'username' => $username,
+                        'ateliers' => $ateliers,
+                        'hotels' => $hotels,
+                        'restauration' => $restauration,
+            ]);
+        }else {
+            return $this->redirectToRoute("app_accueil");
+        }
     }
 
     #[Route('/changementEmail', name: 'app_changemail')]
@@ -69,7 +73,7 @@ class InscriptionCongresController extends AbstractController {
             $inscription->setDateinscription(new DateTime());
             //remplir la table inscription_atelier (id inscription et id atelier)
             foreach ($_POST["ateliers"] as $atelier) {
-                
+
                 $atelierExistant = $em->getRepository(Atelier::class)->findOneBy(['id' => intval($atelier)]);
                 $inscription->addAtelier($atelierExistant);
             }
@@ -77,16 +81,16 @@ class InscriptionCongresController extends AbstractController {
             //split les informations des restaurations reçu sous forme id_date_type_repas
             //remplir la table inscription_restauration (id inscription et id restauration)
             foreach ($_POST["Restauration"] as $restauration) {
-                $restaurationArray = explode("_",$restauration);
+                $restaurationArray = explode("_", $restauration);
                 $restaurationExistant = $em->getRepository(Restauration::class)->findOneBy(['id' => intval($restaurationArray[0])]);
                 $inscription->addRestauration($restaurationExistant);
             }
-            
-            
+
+
             //split info nuite recu sous forme nuite.id _hotel.nom _categoriechambre.libellecategorie_nuite.tarifnuite_datenuite_categoriechambre.id_hotel.id
             //remplir la table nuite (id inscription et id hotel et id categorie et date nuite)
             foreach ($_POST["Nuites"] as $nuite) {
-                $nuiteArray = explode("_",$nuite);
+                $nuiteArray = explode("_", $nuite);
                 $nuiteobjet = new Nuite();
                 $hotelExistant = $em->getRepository(Hotel::class)->findOneBy(['id' => intval($nuiteArray[6])]);
                 $nuiteobjet->setHotel($hotelExistant);
@@ -95,8 +99,7 @@ class InscriptionCongresController extends AbstractController {
                 $date = DateTime::createFromFormat("Y-d-m", $nuiteArray[4]);
                 $nuiteobjet->setDatenuitee($date);
                 $inscription->addNuite($nuiteobjet);
-                 $em->persist($nuiteobjet);
-                
+                $em->persist($nuiteobjet);
             }
             $em->persist($inscription);
             $compte->setInscription($inscription);
