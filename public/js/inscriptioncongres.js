@@ -13,6 +13,8 @@ const recap = document.getElementById("recap");
 const commit = document.getElementById("commit");
 //section conteant les bouton
 const SubmitSection = document.getElementById("SubmitSection");
+//div contient le recap
+const RecapDiv = document.getElementById("RecapDiv");
 // Les Ateliers
 const ateliers = document.getElementsByName("ateliers[]");
 //Les nuités
@@ -21,12 +23,12 @@ const nuites = document.getElementsByName("Nuites[]");
 const restaurations = document.getElementsByName("Restauration[]");
 
 //envoie les param du form en post
-async function sendData(form) {
+async function sendData(form, link) {
     // Associate the FormData object with the form element
     const formData = new FormData(form);
 
     try {
-        const response = await fetch("/changementEmail", {
+        const response = await fetch(link, {
             method: "POST",
             // Defini formData en post
             body: formData
@@ -75,13 +77,13 @@ recap.addEventListener("click", function () {
         FormDiv.style.display = "none";
         recap.style.display = "none";
         commit.style.display = "block";
-        FormInscription.innerHTML += '<div class="card-container" >'
+        RecapDiv.innerHTML += '<div class="card-container" >'
                 + '<div class="card-header"><h2>Resumé de l\'inscription : </h2></div>'
-                + '<ul class="card-content" id="resume">' ;
+                + '<ul class="card-content" id="resume">';
         let resume = document.getElementById("resume");
         //prix du congres
         let total = 130;
-        
+
         //Affichage Ateliers
         resume.innerHTML += '<li><strong>Ateliers Selectionnés</strong></li>';
         for (let atelier of ateliersChecked) {
@@ -89,43 +91,41 @@ recap.addEventListener("click", function () {
             resume.innerHTML += '<li>' + atelier + '</li>';
         }
         //Affichage nuités
-        if(nuitesChecked.length !==0) {
+        if (nuitesChecked.length !== 0) {
             resume.innerHTML += '<li><strong>Nuités Selectionnés</strong></li>';
             for (let nuite of nuitesChecked) {
 
-                resume.innerHTML += '<li>' + nuite[1] +' <strong>'+nuite[2]+'</strong> '+nuite[4] +'<strong style="display: flex;flex-direction: row-reverse;"> '+nuite[3]+ '€</strong></li>';
+                resume.innerHTML += '<li>' + nuite[1] + ' <strong>' + nuite[2] + '</strong> ' + nuite[4] + '<strong style="display: flex;flex-direction: row-reverse;"> ' + nuite[3] + '€</strong></li>';
                 total += parseInt(nuite[3]);
             }
         }
         //affichage Resaurations
-        if(restoChecked.length !==0) {
+        if (restoChecked.length !== 0) {
             resume.innerHTML += '<li><strong>Restaurations Selectionnés</strong></li>';
             for (let resto of restoChecked) {
                 let prixresto = 38;
-
-                resume.innerHTML += '<li>' + resto[1] +' <strong>'+resto[2] +'<strong style="display: flex;flex-direction: row-reverse;">'+ prixresto +'€</strong></li>';
+                resume.innerHTML += '<li>' + resto[1] + ' <strong>' + resto[2] + '<strong style="display: flex;flex-direction: row-reverse;">' + prixresto + '€</strong></li>';
                 //prix restauration
                 total += parseInt(prixresto);
             }
         }
-            resume.innerHTML +='<li><strong>INSCRIPTION AU CONGRES</strong>'+'<strong style="display: flex;flex-direction: row-reverse;"> '+130+ '€</strong></li>'
-                    +'<h2> TOTAL : '+total +'€</h2>';
-        FormInscription.innerHTML += '</ul><\div>';
+        resume.innerHTML += '<li><strong>INSCRIPTION AU CONGRES</strong>' + '<strong style="display: flex;flex-direction: row-reverse;"> ' + 130 + '€</strong></li>'
+                + '<h2> TOTAL : ' + total + '€</h2>';
+        RecapDiv.innerHTML += '</ul><\div>';
     }
-
-    //debug a retiré
-    for (const pair of formDataInscription.entries()) {
-        console.log(pair[0], pair[1]);
-    }
-    for (let atelier of ateliers) {
-        if (atelier.checked) {
-            console.log(atelier.id);
-        }
-    }
+    const submit = document.getElementById("commit");
+    submit.addEventListener("click", function (e) {
+        //empeche le submit automatique
+        e.preventDefault();
+        const Form = document.getElementById("FormDiv");
+        Form.style.display = "block";
+        
+        FormInscription.submit();
 
 
-
+    });
 });
+
 
 
 //au moment de la validation
@@ -133,11 +133,8 @@ confirmemail.addEventListener("click", function (e) {
     //empeche le submit automatique
     e.preventDefault();
     if (window.confirm("Vous êtes sur le point de definir cet email comme mail de connexion")) {
-        sendData(formEmail).await;
+        sendData(formEmail, "/changementEmail").await;
         location.reload();
     }
 
 });
-
-
-

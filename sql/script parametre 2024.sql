@@ -1,4 +1,10 @@
 use mdl;
+SET SQL_SAFE_UPDATES = 0;
+delete from proposer where true;
+delete from categoriechambre where true;
+delete from hotel where true;
+delete from restauration where true;
+delete from compte where true;
 -- creation hotels et chambres
 insert into hotel (id,nom,adresse1,cp,ville,tel,mail) values
 (1,"Ibis Styles Lille Centre Gare Beffroi","172 rue Pierre Mauroy","59000","Lille","+33 1 87 21 37 10","mail"),
