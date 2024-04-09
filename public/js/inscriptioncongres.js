@@ -119,7 +119,13 @@ recap.addEventListener("click", function () {
         e.preventDefault();
         const Form = document.getElementById("FormDiv");
         Form.style.display = "block";
-        
+        // Crée un champ caché au formulaire qui contiendra le resumé
+        const extraData = document.createElement("input");
+        extraData.setAttribute("type", "hidden");
+        extraData.setAttribute("name", "recap_div");
+        extraData.setAttribute("value", RecapDiv.innerHTML);
+        FormInscription.appendChild(extraData);
+
         FormInscription.submit();
 
 

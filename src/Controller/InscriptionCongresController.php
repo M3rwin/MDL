@@ -18,6 +18,8 @@ use DateTime;
 use App\Entity\Nuite;
 use Symfony\Component\HttpFoundation\Request;
 use App\Entity\Inscription;
+use Symfony\Component\Mailer\MailerInterface;
+use Symfony\Component\Mime\Email;
 
 class InscriptionCongresController extends AbstractController {
 
@@ -42,7 +44,7 @@ class InscriptionCongresController extends AbstractController {
                         'hotels' => $hotels,
                         'restauration' => $restauration,
             ]);
-        }else {
+        } else {
             return $this->redirectToRoute("app_accueil");
         }
     }
@@ -62,7 +64,7 @@ class InscriptionCongresController extends AbstractController {
     }
 
     #[Route('/commitinscription', name: 'app_commitinscription')]
-    public function CommitInscription(EntityManagerInterface $em, Request $request) {
+    public function CommitInscription(EntityManagerInterface $em, Request $request, MailerInterface $mailer) {
         //recuperer l'user
         try {
             $user = $this->getUser();
@@ -73,42 +75,51 @@ class InscriptionCongresController extends AbstractController {
             $inscription->setDateinscription(new DateTime());
             //remplir la table inscription_atelier (id inscription et id atelier)
             foreach ($_POST["ateliers"] as $atelier) {
-
                 $atelierExistant = $em->getRepository(Atelier::class)->findOneBy(['id' => intval($atelier)]);
                 $inscription->addAtelier($atelierExistant);
             }
 
             //split les informations des restaurations reçu sous forme id_date_type_repas
             //remplir la table inscription_restauration (id inscription et id restauration)
-            foreach ($_POST["Restauration"] as $restauration) {
-                $restaurationArray = explode("_", $restauration);
-                $restaurationExistant = $em->getRepository(Restauration::class)->findOneBy(['id' => intval($restaurationArray[0])]);
-                $inscription->addRestauration($restaurationExistant);
+            if (isset($_POST["Restauration"])) {
+                foreach ($_POST["Restauration"] as $restauration) {
+                    $restaurationArray = explode("_", $restauration);
+                    $restaurationExistant = $em->getRepository(Restauration::class)->findOneBy(['id' => intval($restaurationArray[0])]);
+                    $inscription->addRestauration($restaurationExistant);
+                }
             }
-
-
             //split info nuite recu sous forme nuite.id _hotel.nom _categoriechambre.libellecategorie_nuite.tarifnuite_datenuite_categoriechambre.id_hotel.id
             //remplir la table nuite (id inscription et id hotel et id categorie et date nuite)
-            foreach ($_POST["Nuites"] as $nuite) {
-                $nuiteArray = explode("_", $nuite);
-                $nuiteobjet = new Nuite();
-                $hotelExistant = $em->getRepository(Hotel::class)->findOneBy(['id' => intval($nuiteArray[6])]);
-                $nuiteobjet->setHotel($hotelExistant);
-                $categorieExistant = $em->getRepository(Categoriechambre::class)->findOneBy(['id' => intval($nuiteArray[5])]);
-                $nuiteobjet->setCategorie($categorieExistant);
-                $date = DateTime::createFromFormat("Y-d-m", $nuiteArray[4]);
-                $nuiteobjet->setDatenuitee($date);
-                $inscription->addNuite($nuiteobjet);
-                $em->persist($nuiteobjet);
+            if (isset($_POST["Nuites"])) {
+                foreach ($_POST["Nuites"] as $nuite) {
+                    $nuiteArray = explode("_", $nuite);
+                    $nuiteobjet = new Nuite();
+                    $hotelExistant = $em->getRepository(Hotel::class)->findOneBy(['id' => intval($nuiteArray[6])]);
+                    $nuiteobjet->setHotel($hotelExistant);
+                    $categorieExistant = $em->getRepository(Categoriechambre::class)->findOneBy(['id' => intval($nuiteArray[5])]);
+                    $nuiteobjet->setCategorie($categorieExistant);
+                    $date = DateTime::createFromFormat("Y-d-m", $nuiteArray[4]);
+                    $nuiteobjet->setDatenuitee($date);
+                    $inscription->addNuite($nuiteobjet);
+                    $em->persist($nuiteobjet);
+                }
             }
             $em->persist($inscription);
             $compte->setInscription($inscription);
+
+            $email = (new Email())
+                    ->from('ne-pas-repondre@doney.fr')
+                    ->to($username)
+                    ->subject('Confirmation D\'inscription')
+                    ->text($_POST["recap_div"]);
+
+            $mailer->send($email);
+
             $em->flush();
 
-            $parameters = json_decode($request->getContent(), true);
-            return new Response(var_dump($_POST));
+            return $this->redirectToRoute("app_accueil");
         } catch (Exception $ex) {
-            return;
+            return $ex;
         }
     }
 }
