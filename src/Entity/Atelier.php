@@ -25,10 +25,10 @@ class Atelier
     #[ORM\ManyToMany(targetEntity: Inscription::class, mappedBy: 'ateliers')]
     private Collection $inscriptions;
 
-    #[ORM\OneToMany(mappedBy: 'atelier', targetEntity: vacation::class)]
+    #[ORM\OneToMany(mappedBy: 'atelier', targetEntity: Vacation::class)]
     private Collection $vacations;
 
-    #[ORM\ManyToMany(targetEntity: theme::class, inversedBy: 'ateliers')]
+    #[ORM\ManyToMany(targetEntity: Theme::class, inversedBy: 'ateliers')]
     private Collection $themes;
 
     public function __construct()
