@@ -39,7 +39,7 @@ class Hotel
     #[ORM\OneToMany(mappedBy: 'hotel', targetEntity: Nuite::class)]
     private Collection $nuites;
 
-    #[ORM\OneToMany(mappedBy: 'hotel', targetEntity: proposer::class)]
+    #[ORM\OneToMany(mappedBy: 'hotel', targetEntity: Proposer::class)]
     private Collection $tarifs;
 
     public function __construct()

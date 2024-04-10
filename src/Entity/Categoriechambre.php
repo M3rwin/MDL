@@ -18,7 +18,7 @@ class Categoriechambre
     #[ORM\Column(length: 255)]
     private ?string $libellecategorie = null;
 
-    #[ORM\OneToMany(mappedBy: 'categoriechambre', targetEntity: proposer::class)]
+    #[ORM\OneToMany(mappedBy: 'categoriechambre', targetEntity: Proposer::class)]
     private Collection $tarifs;
 
     public function __construct()
