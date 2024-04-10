@@ -12,7 +12,7 @@
  */
 
 namespace App\Outils;
-use App\Entity\Licencie;
+
 class Outils {
 
     public static function GetLicencieByNumLicence(string $num) {
@@ -43,4 +43,10 @@ class Outils {
           echo "<h1>Une Erreur est Survenue lors de la recherche du licencié</h1>";
         }
     }
+    
+    
+
+   
+    
+    
 }

@@ -1,10 +1,11 @@
 /* code navbar */
 
 .navbar {
-    background-color: #ffd700;
+    background-color: lightblue;
     box-shadow: 0 2px 4px rgba(0,0,0,0.1);
     padding: 10px 20px;
 }
+
 
 .navbar-nav {
     list-style: none;
@@ -42,7 +43,7 @@
 }
 
 .nav-link:hover, .nav-link:focus {
-    background-color: #eeca00;
+    background-color: lightsteelblue;
     color: #000;
     text-decoration: none;
 }
@@ -51,4 +52,58 @@
     transform: scale(0.95);
 }
 
+.card-container {
+    max-width: 50%;
+    margin-top: 20px;
+    margin-left: 25%;
+    margin-right: 25%;
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    background-color: #f9f9f9;
+}
+.card-atelier{
+    max-width: 15%;
+    margin-top: 5px;
+    margin-left: 5%;
+    margin-right: 25%;
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    background-color: #f9f9f9;
+}
+
+.card-nuite{
+    max-width: 20%;
+    margin-top: 5px;
+    margin-left: 5%;
+    margin-right: 25%;
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    background-color: #f9f9f9;
+}
+
+.card-header {
+    margin-bottom: 20px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid #eee;
+    text-align: center;
+}
+
+.card-content {
+    list-style-type: none;
+    padding: 0;
+}
+
+.card-content li {
+    margin-bottom: 10px;
+}
+
+.card-content li:last-child {
+    margin-bottom: 0;
+}
 /* fin code navbar */

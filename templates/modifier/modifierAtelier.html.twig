@@ -1,0 +1,75 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello ModifierController!{% endblock %}
+
+{% block body %}
+    <style>
+        .example-wrapper {
+            margin: 1em auto;
+            max-width: 800px;
+            width: 95%;
+            font: 18px/1.5 sans-serif;
+        }
+        .example-wrapper code {
+            background: #F5F5F5;
+            padding: 2px 6px;
+        }
+
+        table {
+            margin-top: 10px;
+            border-collapse: collapse;
+            border: 2px solid rgb(140 140 140);
+            font-family: sans-serif;
+            font-size: 0.8rem;
+            letter-spacing: 1px;
+        }
+
+        thead {
+            background-color: rgb(228 240 245);
+        }
+
+        th,
+        td {
+            border: 1px solid rgb(160 160 160);
+            padding: 8px 10px;
+        }
+
+        td:last-of-type {
+            text-align: center;
+        }
+
+        tbody > tr:nth-of-type(even) {
+            background-color: rgb(237 238 242);
+        }
+
+        .content{
+            display: flex;
+            justify-content: center;
+        }
+
+    </style>
+    
+    <h1 style='text-align: center;'>Vacations de l'atelier {{ atelier.libelle }}</h1>
+    
+    <div class="content">
+        <table>
+            <thead>
+                <tr>
+                    <th scope="col">Date de début</th>
+                    <th scope="col">Date de fin</th>
+                    <th scope="col">Modifier la vacation</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for vacation in atelier.vacations %}
+                    <tr>
+                        <th>{{ vacation.dateheuredebut|date("d/m/Y") }}</th>
+                        <td>{{ vacation.dateheurefin|date("d/m/Y") }}</td>
+                        <td><a href="/modifier/{{ atelier.id }}/{{ vacation.id }}">Modifier vacation</a></td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+{% endblock %}

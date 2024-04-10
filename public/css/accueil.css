@@ -17,16 +17,19 @@
 .contenue{
     display: flex;
     justify-content: space-between;
+    
 }
 
 .menu, .ateliers, .hebergement {
+    display: flex;
     margin: 1em auto;
     max-width: 800px;
-    width: 45%;
+    width: 31%;
     font: 18px/1.5 sans-serif;
     border-radius: 10px;
-    background-color: yellow;
+    background-color: lightgrey;
     margin-top: -20px;
+    flex-direction: column;
 }
 
 .menu h3, .ateliers h3, .hebergement h3{
@@ -37,9 +40,7 @@
     margin-left: 10px;
 }
 
-.ateliers, .hebergement{
-    width: 25%;
-}
+
 
 .data-item {
     margin-top: -10px;
@@ -53,4 +54,14 @@
 
 .menu li {
     margin-bottom: 5px;
+}
+#ateliers {
+  width: 100%; /* Adaptez cette valeur selon vos besoins */
+  border-collapse: collapse; /* Optionnel: pour un affichage plus net des bordures */
+}
+
+#ateliers th, #ateliers td {
+  text-align: center; /* Centrage horizontal */
+  vertical-align: middle; /* Centrage vertical */
+  padding: 8px; /* Optionnel: ajoute un peu d'espace autour du texte dans les cellules */
 }

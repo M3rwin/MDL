@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello AccueilController!{% endblock %}
+{% block title %}Accueil!{% endblock %}
 
 {% block stylesheets %}
     <link rel="stylesheet" href="{{ asset('css/style.css') }}">
@@ -18,15 +18,27 @@
 <div class="contenue">   
     <div class="ateliers">
         <h3>Ateliers</h3>
-        <p class="data-item">insérer données</p>
+        <table id='ateliers'>
+            <tr><th>Nom</th><th>Nombre de place</th></tr>
+            
+        {% for atelier in ateliers%}
+            <tr><td>{{atelier.libelle}}</td>  <td>{{atelier.nbplacesmaxi}}</td></tr>
+        {% endfor%}
+        </table>
     </div>
-    <div class="menu">
-        <h3>Menu</h3>
-        <p class="data-item">insérer données</p>
-    </div>
+    
     <div class="hebergement">
         <h3>Hébergement</h3>
-        <p class="data-item">insérer données</p>
+        {% for hotel in hotels%}
+            <tr><a>{{hotel.nom}}</a></tr>
+        <ul>
+        {% for nuite in hotel.tarifs%}
+        <li>{{ nuite.categoriechambre.libellecategorie }}  {{ nuite.tarifnuite }}€</li>
+        {% endfor%}
+        </ul>
+        {% endfor%}
     </div>
 </div>
+        
+            
 {% endblock %}

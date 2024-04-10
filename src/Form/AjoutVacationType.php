@@ -6,6 +6,8 @@ use App\Entity\Vacation;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
+use App\Entity\Atelier;
 
 class AjoutVacationType extends AbstractType
 {
@@ -14,7 +16,10 @@ class AjoutVacationType extends AbstractType
         $builder
             ->add('dateheuredebut')
             ->add('dateheurefin')
-            ->add('atelier')
+            ->add('atelier', EntityType::class, [
+                'class' => Atelier::class,
+                'choice_label' => 'libelle',
+            ])
         ;
     }
 
