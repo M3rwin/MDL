@@ -109,7 +109,7 @@ class InscriptionCongresController extends AbstractController {
 
             $email = (new Email())
                     ->from('ne-pas-repondre@doney.fr')
-                    ->to($username)
+                    ->to($user->getEmail())
                     ->subject('Confirmation D\'inscription')
                     ->text($_POST["recap_div"]);
 
