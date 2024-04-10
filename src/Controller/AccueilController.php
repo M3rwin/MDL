@@ -31,7 +31,6 @@ class AccueilController extends AbstractController
         $ateliers = $atelier->findAll();
         $hotels = $hotel->findAll();
         return $this->render('accueil/index.html.twig', [
-            'controller_name' => 'AccueilController',
             'ateliers'=>$ateliers,
             'hotels'=>$hotels,
         ]);

@@ -1,0 +1,108 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Inscription au congrès{% endblock %}
+
+{% block body %}
+
+    <body>
+        
+        <div class="card-container" >
+            <div class="card-header">
+                <strong>{{ licencie.nom }} {{ licencie.prenom }}</strong>
+            </div>
+            <ul class="card-content">
+                <li>{{ licencie.idClub.nom }}</li>
+                <li>{{ licencie.adresse1 }}</li>
+                    {% if licencie.adresse2 is not null %}
+                    <li>{{ licencie.adresse2 }}</li>
+                    {% endif %}
+                <li>{{ licencie.cp }} {{ licencie.ville }}</li>
+                <li>{{ licencie.tel }}</li>
+                <li>{{ licencie.mail }}
+                    {% if licencie.mail != username %}
+                        <form id="formemail"><input value="{{ licencie.mail }}" name="mail"  style="display: none"> <input type="submit" value="Definir comme mail du compte" id="mailconfirm"></form>
+                        {% endif %}
+                </li>
+            </ul>
+        </div>
+
+        <div class="inscription" >
+            <form action="/commitinscription" id="FormInscription" method="post">
+                <div id="FormDiv">
+                    <div id="FormAteliers">
+                        <h3>Ateliers</h3>
+                        {% for atelier in ateliers %}
+                            <input type="checkbox" class="radioAtelier" name="ateliers[]" id="{{ atelier.libelle }}" value="{{ atelier.id }}" />
+                            <label for="{{ atelier.libelle }}">
+                                <div class="card-container card-atelier"><div class="card-header">
+                                        <strong>{{ atelier.libelle }}</strong>
+                                    </div>
+                                    <ul class="card-content"><li>{{ atelier.nbplacesmaxi - atelier.inscriptions|length }} places restante</li></ul>
+                                </div>
+                            </label>
+                        {% endfor %}
+                    </div>
+
+                    <div id="FormHotels">
+                        <h3>Nuités (Facultatif)</h3>
+                        {% for nuite in hotels %}
+
+
+                            <div class="card-nuite"><div class="card-header">
+                                    <strong>{{ nuite.hotel.nom }}</strong>
+                                </div>
+                                <ul class="card-content">
+                                    <li>{{ nuite.categoriechambre.libellecategorie }}</li>
+                                    <li>{{ nuite.tarifnuite }} €</li>
+                                    <input type="checkbox" class="radioNuite" name="Nuites[]" id="{{ nuite.id }}" value="{{ nuite.id }}_{{ nuite.hotel.nom }}_{{ nuite.categoriechambre.libellecategorie }}_{{ nuite.tarifnuite }}_2024-06-09_{{ nuite.categoriechambre.id }}_{{ nuite.hotel.id }}" />
+                                    <label>
+                                        06/09/2024
+                                    </label>
+                                    <input type="checkbox" class="radioNuite" name="Nuites[]" id="{{ nuite.id }}" value="{{ nuite.id }}_{{ nuite.hotel.nom }}_{{ nuite.categoriechambre.libellecategorie }}_{{ nuite.tarifnuite }}_2024-07-09_{{ nuite.categoriechambre.id }}_{{ nuite.hotel.id }}" />
+                                    <label>
+                                        07/09/2024
+                                    </label>
+                                    <input type="checkbox" class="radioNuite" name="Nuites[]" id="{{ nuite.id }}" value="{{ nuite.id }}_{{ nuite.hotel.nom }}_{{ nuite.categoriechambre.libellecategorie }}_{{ nuite.tarifnuite }}_2024-08-09_{{ nuite.categoriechambre.id }}_{{ nuite.hotel.id }}" />
+                                    <label>
+                                        08/09/2024
+                                    </label>
+                                </ul>
+                            </div>
+
+                        {% endfor %}
+                    </div>
+                    <div id="FormRestauration">
+                        <h3>Restauration (Facultatif)</h3>
+
+                        <div class="card-nuite"><div class="card-header">
+                                <strong>38€ par repas</strong>
+                            </div>
+                            <ul class="card-content">
+                                {% for repas in restauration %}
+                                    <li><input type="checkbox" class="radioNuite" name="Restauration[]" id="{{ repas.id }}" value="{{ repas.id }}_{{ repas.dateRestauration|date('d/m/Y') }}_{{ repas.typeRepas }}" />
+                                        <label>
+                                            {{ repas.dateRestauration|date('d/m/Y') }} {{ repas.typeRepas }}
+                                        </label>
+                                    </li>
+                                {% endfor %}
+                            </ul>
+
+                        </div>
+                    </div>
+                    <div id="SubmitSection">
+                        <button type="button" id="recap">Voir mon inscription</button>
+
+
+                    </div>
+                            
+
+
+
+
+                </div>
+                <input type="submit" id="commit" style="display: none" value="Valider">
+            </form>
+                            <div id="RecapDiv"></div>
+            <script src="{{ asset('js/inscriptioncongres.js') }}"></script>
+    </body>
+{% endblock %}
