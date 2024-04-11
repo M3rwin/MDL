@@ -36,9 +36,8 @@ class ModifierController extends AbstractController
     
     
     #[Route('/modifier/{idAtelier}/{idVacation}', name: 'app_modifier_atelier_vacations')]
-    public function modifierAtelierVacations(Request $request, VacationRepository $repoVacation, AtelierRepository $repoAtelier, EntityManagerInterface $em, int $idAtelier, int $idVacation): Response
+    public function modifierAtelierVacations(Request $request, VacationRepository $repoVacation, EntityManagerInterface $em, int $idAtelier, int $idVacation): Response
     {
-        $atelier = $repoAtelier->find($idAtelier);
         $vacation = $repoVacation->find($idVacation);
         
         $formVacation = $this->createForm(AjoutVacationType::class, $vacation);

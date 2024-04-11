@@ -1,13 +1,9 @@
 {% extends 'base.html.twig' %}
 
-{% block stylesheets %}
-    <link rel="stylesheet" href="{{ asset('css/style.css') }}">
-    <link rel="stylesheet" href="{{ asset('css/forms.css') }}">
-{% endblock %}
 
 {% block body %}
 <div  class="form" id="vacation" style="display: block;">
-    <p>Modification vacation {{ id }}</p>
+    <p>Modification de la vacation</p>
     {{ form_start(formVacation) }}
     {{ form_widget(formVacation) }}
     <input type="hidden" name="form_type" value="vacation">

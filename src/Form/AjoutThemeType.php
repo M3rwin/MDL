@@ -26,6 +26,7 @@ class AjoutThemeType extends AbstractType {
                     'attr' => [
                         'class' => 'form-select form-select-sm',
                         'aria-label' => '.form-select-sm example',
+                        'style' => 'margin-bottom: 8px;',
                     ],
                 ])
         ;
