@@ -14,7 +14,11 @@ class AjoutAtelierType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('libelle')
+            ->add('libelle', TextType::class, [
+                    'attr'=>[
+                        'class' => 'form-control',
+                    ]
+                ])
             ->add('nbplacesmaxi')
         ;
     }
