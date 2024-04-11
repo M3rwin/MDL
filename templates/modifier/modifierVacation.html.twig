@@ -7,6 +7,7 @@
     {{ form_start(formVacation) }}
     {{ form_row(formVacation.dateheuredebut) }}
     {{ form_row(formVacation.dateheurefin) }}
+    {{ form_row(form._token) }}
     <input type="hidden" name="form_type" value="vacation">
     <input type="submit" value="envoyer">
     {{ form_end(formVacation, {'render_rest': false}) }}
