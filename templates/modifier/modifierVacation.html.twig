@@ -5,9 +5,10 @@
 <div  class="form" id="vacation" style="display: block;">
     <p>Modification de la vacation</p>
     {{ form_start(formVacation) }}
-    {{ form_widget(formVacation) }}
+    {{ form_row(formVacation.dateheuredebut) }}
+    {{ form_row(formVacation.dateheurefin) }}
     <input type="hidden" name="form_type" value="vacation">
     <input type="submit" value="envoyer">
-    {{ form_end(formVacation) }}
+    {{ form_end(formVacation, {'render_rest': false}) }}
 </div>
 {% endblock %}
